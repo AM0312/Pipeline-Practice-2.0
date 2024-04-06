@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
+import time
 
 service=Service(
     executable_path='/usr/local/bin/chromedriver'
@@ -26,6 +27,10 @@ try:
         print('The webpage has an h1 tag with the word "magic"')
     else:
         print('The webpage does not have an h1 tag with the word "magic"')
+
+    timestamp=time.strftime("%Y%m%d-%H%M%S")
+    screenshot_file=f"screenshot_{timestamp}.png"
+    driver.save_screenshot(screenshot_file)
 
 except Exception as e:
     print("Failed, ",e)
