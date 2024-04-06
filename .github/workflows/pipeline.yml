@@ -28,14 +28,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Save Screenshot to repository
-        if: ${{ success() }}
-        run: |
-          git config --global user.email "ansh.midha0312@gmail.com"
-          git config --global user.name "GitHub Actions"
-          git add screenshot_*.png
-          git commit -m "Added screenshot taken during testing"
-          git push
 
   automation-testing:
     needs: sonarcloud
@@ -59,6 +51,14 @@ jobs:
         run: pip install selenium
       - name: Run Selenium Tests
         run: python test.py
+      - name: Save Screenshot to repository
+        if: ${{ success() }}
+        run: |
+          git config --global user.email "ansh.midha0312@gmail.com"
+          git config --global user.name "GitHub Actions"
+          git add screenshot_*.png
+          git commit -m "Added screenshot taken during testing"
+          git push
 
   deploy:
     needs: automation-testing
