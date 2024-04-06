@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 
 service=Service(
-    executable_path="C:/Users/anshm/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"
+    executable_path='/usr/local/bin/chromedriver'
 )
 
 options=webdriver.ChromeOptions()
