@@ -52,4 +52,4 @@ jobs:
 
       # Step to execute Selenium tests
       - name: Run Selenium tests
-        run: python testcase.py
+        run: python testcases.py
