@@ -1,0 +1,40 @@
+name: Buddypress automation testing
+
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  automation-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.12"
+      - name: Install Chrome Driver
+        run: |
+          LATEST=$(wget -q -O - https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE)
+          wget https://storage.googleapis.com/chrome-for-testing-public/$LATEST/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
+          cd chromedriver-linux64
+          sudo mv chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
+      - name: Install Selenium
+        run: pip install selenium
+      - name: Run Selenium Tests
+        run: python testcases.py
+ 
